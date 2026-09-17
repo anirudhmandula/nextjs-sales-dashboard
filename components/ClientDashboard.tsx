@@ -12,7 +12,7 @@ const ClientDashboard: React.FC<Props> = ({ salesData }) => {
   const availableYears = Object.keys(salesData || {});
   const [selectedYear, setSelectedYear] = useState(availableYears[0] || "");
 
-  if (!availableYears || availableYears.length === 0) {
+  if (availableYears.length === 0) {
     return <p className="text-red-600">No sales data available.</p>;
   }
 
@@ -35,11 +35,6 @@ const ClientDashboard: React.FC<Props> = ({ salesData }) => {
           </thead>
           <tbody>
             {(salesData[selectedYear] || [])
-              .slice() // copy array
-              .sort((a, b) => {
-                const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-                return months.indexOf(a.month) - months.indexOf(b.month);
-              })
               .map((row) => (
                 <tr key={row.month}>
                   <td className="px-3 py-1 border-b">{row.month}</td>
